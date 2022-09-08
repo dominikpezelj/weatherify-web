@@ -1,55 +1,42 @@
-import {
-  Container,
-  Toolbar,
-  Typography,
-  Box,
-  IconButton,
-  Menu,
-  MenuItem,
-  Button,
-  Tooltip,
-  Avatar,
-} from '@mui/material';
-
-import React from 'react';
-import AppBar from '@mui/material/AppBar';
-import AdbIcon from '@mui/icons-material/Adb';
 import MenuIcon from '@mui/icons-material/Menu';
+import ThunderstormIcon from '@mui/icons-material/Thunderstorm';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import { Box, Button, Container, IconButton, Stack, Toolbar, Typography } from '@mui/material';
+import AppBar from '@mui/material/AppBar';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { appName, menuItems } from '../../common/constants';
-
+import { NavigationDrawer } from './NavigationDrawer';
 export const Navigation = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [state, setState] = useState(false);
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
+  const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+    if (
+      event.type === 'keydown' &&
+      ((event as React.KeyboardEvent).key === 'Tab' ||
+        (event as React.KeyboardEvent).key === 'Shift')
+    ) {
+      return;
+    }
+
+    setState(open);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  console.log(state);
 
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <WbSunnyIcon
+            sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, fontSize: '32px', color: '#ffbf00' }}
+          />
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
@@ -65,47 +52,23 @@ export const Navigation = () => {
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleOpenNavMenu}
+              onClick={toggleDrawer(true)}
               color="inherit"
             >
               <MenuIcon />
             </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'center',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'center',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'flex', justifyContent: 'center', md: 'none' },
-              }}
-            >
-              {menuItems.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            <NavigationDrawer toggleDrawer={toggleDrawer} menuItems={menuItems} state={state} />
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <WbSunnyIcon
+            sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, fontSize: '32px', color: '#ffbf00' }}
+          />
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href=""
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
@@ -121,44 +84,27 @@ export const Navigation = () => {
             }}
           >
             {menuItems.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
+              <Link to={page.path} style={{ textDecoration: 'none' }} key={page.route}>
+                <Button
+                  key={page.route}
+                  href={page.path}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {page.route}
+                </Button>
+              </Link>
             ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {/* {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))} */}
-            </Menu>
+            <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
+              <ThunderstormIcon sx={{ fontSize: '26px' }} />
+              <Typography sx={{ fontSize: '24px', fontWeight: '900' }}>26° C</Typography>
+              <Stack direction="column" sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <Typography>Sisak</Typography>
+                <Typography>Croatia</Typography>
+              </Stack>
+            </Stack>
           </Box>
         </Toolbar>
       </Container>
