@@ -5,7 +5,6 @@ import ScheduleIcon from '@mui/icons-material/Schedule';
 
 import ThermostatIcon from '@mui/icons-material/Thermostat';
 import ThunderstormIcon from '@mui/icons-material/Thunderstorm';
-import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import {
   Box,
   Divider,
@@ -23,6 +22,7 @@ import { Link } from 'react-router-dom';
 import { appName } from '../../common/constants';
 import { BottomMenu } from './BottomMenu';
 import { Copyright } from './Copyright';
+import { NavigationLogo } from './NavigationLogo';
 
 type NavigationDrawerProps = {
   menuItems: MenuItems[];
@@ -46,23 +46,14 @@ export const NavigationDrawer = ({ menuItems, state, toggleDrawer }: NavigationD
       onKeyDown={toggleDrawer(false)}
     >
       <Stack direction="row" justifyContent="center" alignItems="center" sx={{ height: '5rem' }}>
-        <WbSunnyIcon
-          sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, fontSize: '32px', color: '#ffbf00' }}
+        <NavigationLogo
+          variant={'h6'}
+          title={appName}
+          titleColor={'black'}
+          display={{ xs: 'flex', md: 'none' }}
+          iconColor={'#ffbf00'}
+          iconSize={'32px'}
         />
-        <Typography
-          variant="h6"
-          noWrap
-          sx={{
-            mr: 2,
-            display: { xs: 'flex', md: 'none' },
-            fontWeight: 700,
-            letterSpacing: '.3rem',
-            color: 'black',
-            textDecoration: 'none',
-          }}
-        >
-          {appName}
-        </Typography>
       </Stack>
       <Divider />
       <Stack

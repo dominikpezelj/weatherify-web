@@ -1,12 +1,12 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import ThunderstormIcon from '@mui/icons-material/Thunderstorm';
-import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import { Box, Button, Container, IconButton, Stack, Toolbar, Typography } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { appName, menuItems } from '../../common/constants';
 import { NavigationDrawer } from './NavigationDrawer';
+import { NavigationLogo } from './NavigationLogo';
 export const Navigation = () => {
   const [state, setState] = useState(false);
 
@@ -28,23 +28,14 @@ export const Navigation = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <WbSunnyIcon
-            sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, fontSize: '32px', color: '#ffbf00' }}
+          <NavigationLogo
+            variant={'h6'}
+            title={appName}
+            titleColor={'inherit'}
+            display={{ xs: 'none', md: 'flex' }}
+            iconColor={'#ffbf00'}
+            iconSize={'32px'}
           />
-          <Typography
-            variant="h6"
-            noWrap
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            {appName}
-          </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -59,24 +50,15 @@ export const Navigation = () => {
             </IconButton>
             <NavigationDrawer toggleDrawer={toggleDrawer} menuItems={menuItems} state={state} />
           </Box>
-          <WbSunnyIcon
-            sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, fontSize: '32px', color: '#ffbf00' }}
+          <NavigationLogo
+            variant={'h5'}
+            title={appName}
+            titleColor={'inherit'}
+            display={{ xs: 'flex', md: 'none' }}
+            iconColor={'#ffbf00'}
+            iconSize={'32px'}
+            flexGrow={1}
           />
-          <Typography
-            variant="h5"
-            noWrap
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            {appName}
-          </Typography>
           <Box
             sx={{
               flexGrow: 1,
