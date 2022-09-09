@@ -19,20 +19,22 @@ type NavigationLogoProps = {
     | 'inherit'
     | undefined;
   title: string;
+  titleSize: string;
   titleColor?: string;
   display: { xs: string; md: string };
-  iconSize: string;
   iconColor: string;
+  iconSize: string;
   flexGrow?: number;
 };
 
 export const NavigationLogo = ({
   variant,
   title,
+  titleSize,
   titleColor,
   display,
-  iconSize,
   iconColor,
+  iconSize,
   flexGrow,
 }: NavigationLogoProps) => {
   return (
@@ -42,8 +44,8 @@ export const NavigationLogo = ({
         variant={variant}
         noWrap
         sx={{
-          mr: 2,
           display: display,
+          fontSize: titleSize,
           fontWeight: 700,
           letterSpacing: '.3rem',
           color: titleColor,

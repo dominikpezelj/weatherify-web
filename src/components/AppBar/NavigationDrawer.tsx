@@ -55,6 +55,7 @@ export const NavigationDrawer = ({ menuItems, state, toggleDrawer }: NavigationD
           display={{ xs: 'flex', md: 'none' }}
           iconColor={'#ffbf00'}
           iconSize={'32px'}
+          titleSize={'18px'}
         />
       </Stack>
       <Divider />

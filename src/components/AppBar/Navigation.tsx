@@ -33,7 +33,8 @@ export const Navigation = () => {
             title={appName}
             display={{ xs: 'none', md: 'flex' }}
             iconColor={'#ffbf00'}
-            iconSize={'32px'}
+            iconSize={'30px'}
+            titleSize={'19px'}
           />
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -54,7 +55,8 @@ export const Navigation = () => {
             title={appName}
             display={{ xs: 'flex', md: 'none' }}
             iconColor={'#ffbf00'}
-            iconSize={'32px'}
+            iconSize={'21px'}
+            titleSize={'15px'}
             flexGrow={1}
           />
           <Box
@@ -76,14 +78,21 @@ export const Navigation = () => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
             <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
               <ThunderstormIcon sx={{ fontSize: '26px' }} />
               <Typography sx={{ fontSize: '24px', fontWeight: '900' }}>26° C</Typography>
-              <Stack direction="column" sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <Stack direction="column">
                 <Typography>Sisak</Typography>
                 <Typography>Croatia</Typography>
               </Stack>
+            </Stack>
+          </Box>
+
+          <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
+            <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+              <ThunderstormIcon sx={{ fontSize: '21px' }} />
+              <Typography sx={{ fontSize: '13px', fontWeight: '900' }}>26° C</Typography>
             </Stack>
           </Box>
         </Toolbar>
