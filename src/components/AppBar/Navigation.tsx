@@ -31,7 +31,6 @@ export const Navigation = () => {
           <NavigationLogo
             variant={'h6'}
             title={appName}
-            titleColor={'inherit'}
             display={{ xs: 'none', md: 'flex' }}
             iconColor={'#ffbf00'}
             iconSize={'32px'}
@@ -53,7 +52,6 @@ export const Navigation = () => {
           <NavigationLogo
             variant={'h5'}
             title={appName}
-            titleColor={'inherit'}
             display={{ xs: 'flex', md: 'none' }}
             iconColor={'#ffbf00'}
             iconSize={'32px'}

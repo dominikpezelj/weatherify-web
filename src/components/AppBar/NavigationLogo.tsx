@@ -19,7 +19,7 @@ type NavigationLogoProps = {
     | 'inherit'
     | undefined;
   title: string;
-  titleColor: string;
+  titleColor?: string;
   display: { xs: string; md: string };
   iconSize: string;
   iconColor: string;
