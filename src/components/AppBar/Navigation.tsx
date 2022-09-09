@@ -62,7 +62,7 @@ export const Navigation = () => {
           <Box
             sx={{
               flexGrow: 1,
-              display: { xs: 'none', md: 'flex', justifyContent: 'center' },
+              display: { xs: 'none', md: 'flex' },
             }}
           >
             {menuItems.map((page) => (
