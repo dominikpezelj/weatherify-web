@@ -15,6 +15,7 @@ import {
   ListItemText,
   Stack,
   Typography,
+  useTheme,
 } from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import { Fragment, useState } from 'react';
@@ -37,7 +38,8 @@ type MenuItems = {
 
 export const NavigationDrawer = ({ menuItems, state, toggleDrawer }: NavigationDrawerProps) => {
   const [value, setValue] = useState(5);
-
+  const theme = useTheme();
+  const { primary, secondary } = theme.palette.text;
   const list = () => (
     <Box
       sx={{ width: 250 }}
@@ -49,17 +51,18 @@ export const NavigationDrawer = ({ menuItems, state, toggleDrawer }: NavigationD
         <NavigationLogo
           variant={'h6'}
           title={appName}
-          titleColor={'black'}
+          titleColor={secondary}
           display={{ xs: 'flex', md: 'none' }}
           iconColor={'#ffbf00'}
           iconSize={'32px'}
+          titleSize={'18px'}
         />
       </Stack>
       <Divider />
       <Stack
         direction="row"
         alignItems="center"
-        sx={{ height: '5rem', justifyContent: 'space-around' }}
+        sx={{ height: '5rem', justifyContent: 'space-around', color: secondary }}
       >
         <ThunderstormIcon sx={{ fontSize: '26px' }} />
         <Typography sx={{ fontSize: '24px', fontWeight: '900' }}>26° C</Typography>
@@ -85,7 +88,7 @@ export const NavigationDrawer = ({ menuItems, state, toggleDrawer }: NavigationD
                 }
                 <ListItemText
                   primary={item.route}
-                  sx={{ fontWeight: '900 !important', color: '#000' }}
+                  sx={{ fontWeight: '900 !important', color: secondary }}
                 />
               </ListItemButton>
             </ListItem>

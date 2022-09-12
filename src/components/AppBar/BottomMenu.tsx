@@ -23,6 +23,7 @@ export const BottomMenu = ({ value, setValue, toggleDrawer }: BottomMenuProps) =
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
+        sx={{ background: 'transparent' }}
       >
         <BottomNavigationAction
           component={Link}
