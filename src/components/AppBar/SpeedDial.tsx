@@ -1,6 +1,6 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { Box, SpeedDialAction } from '@mui/material';
+import { Box, SpeedDialAction, useTheme } from '@mui/material';
 import SpeedDial from '@mui/material/SpeedDial';
 import { Link } from 'react-router-dom';
 
@@ -23,6 +23,8 @@ const actions = [
   },
 ];
 export const SpeedDialMenu = () => {
+  const theme = useTheme();
+  const { primary } = theme.palette.text;
   return (
     <Box
       sx={{
@@ -35,7 +37,7 @@ export const SpeedDialMenu = () => {
       <SpeedDial
         ariaLabel="speed-dial"
         sx={{ position: 'absolute', bottom: 16, right: 16 }}
-        icon={<MenuIcon />}
+        icon={<MenuIcon sx={{ color: primary }} />}
       >
         {actions.map((action) => (
           <SpeedDialAction key={action.name} icon={action.icon} tooltipTitle={action.name} />
