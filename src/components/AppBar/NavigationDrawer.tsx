@@ -51,7 +51,7 @@ export const NavigationDrawer = ({ menuItems, state, toggleDrawer }: NavigationD
         <NavigationLogo
           variant={'h6'}
           title={appName}
-          titleColor={secondary}
+          titleColor={primary}
           display={{ xs: 'flex', md: 'none' }}
           iconColor={'#ffbf00'}
           iconSize={'32px'}
@@ -62,7 +62,7 @@ export const NavigationDrawer = ({ menuItems, state, toggleDrawer }: NavigationD
       <Stack
         direction="row"
         alignItems="center"
-        sx={{ height: '5rem', justifyContent: 'space-around', color: secondary }}
+        sx={{ height: '5rem', justifyContent: 'space-around', color: primary }}
       >
         <ThunderstormIcon sx={{ fontSize: '26px' }} />
         <Typography sx={{ fontSize: '24px', fontWeight: '900' }}>26° C</Typography>
@@ -88,7 +88,7 @@ export const NavigationDrawer = ({ menuItems, state, toggleDrawer }: NavigationD
                 }
                 <ListItemText
                   primary={item.route}
-                  sx={{ fontWeight: '900 !important', color: secondary }}
+                  sx={{ fontWeight: '900 !important', color: primary }}
                 />
               </ListItemButton>
             </ListItem>
