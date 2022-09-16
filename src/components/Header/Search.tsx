@@ -8,7 +8,8 @@ import {
   useTheme,
 } from '@mui/material';
 import { styled } from '@mui/system';
-import { ChangeEvent, SyntheticEvent, useState } from 'react';
+import debouce from 'lodash.debounce';
+import { ChangeEvent, SyntheticEvent, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useGetLocationByNameQuery, useLazyGetCurrentWeatherByLocationQuery } from '../../api/api';
 import { weatherActions } from '../../store/weather';
@@ -42,14 +43,27 @@ export const SearchBar = () => {
   const arr: string[] = [];
   const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState<string>('');
+  const [skip, setSkip] = useState<boolean>(true);
   const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (event.target.value.length > 1) {
       setSearchValue(event.target.value);
+      setSkip(false);
     }
     if (event.target.value.length === 0) {
       setSearchValue('');
+      setSkip(true);
     }
   };
+
+  const debouncedResults = useMemo(() => {
+    return debouce(handleInputChange, 300);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      debouncedResults.cancel();
+    };
+  });
 
   const [trigger, { data: weatherData, isFetching: weatherIsFetching, error: weatherError }] =
     useLazyGetCurrentWeatherByLocationQuery();
@@ -70,10 +84,15 @@ export const SearchBar = () => {
     dispatch(weatherActions.weather(weatherData));
   }
   console.log(weatherData);
-  const { data, isFetching, error } = useGetLocationByNameQuery({
-    key: '8ef102dbbdfd46d1abb203040211309',
-    value: searchValue,
-  });
+  const { data, isFetching, error } = useGetLocationByNameQuery(
+    {
+      key: '8ef102dbbdfd46d1abb203040211309',
+      value: searchValue,
+    },
+    {
+      skip,
+    },
+  );
   if (error) console.log(error);
   data?.forEach((item) => {
     arr.push(item.name);
@@ -100,7 +119,7 @@ export const SearchBar = () => {
             label="Select a location"
             type="search"
             variant="standard"
-            onChange={handleInputChange}
+            onChange={debouncedResults}
           />
         </Box>
       )}

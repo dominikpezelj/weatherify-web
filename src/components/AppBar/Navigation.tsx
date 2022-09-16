@@ -81,14 +81,14 @@ export const Navigation = () => {
           >
             {menuItems.map((page) => (
               <Link to={page.path} style={{ textDecoration: 'none' }} key={page.route}>
-                <Button key={page.route} href={page.path} sx={{ color: white, display: 'block' }}>
+                <Button key={page.route} sx={{ color: white, display: 'block' }}>
                   {page.route}
                 </Button>
               </Link>
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, color: white }}>
             <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
               <ThunderstormIcon sx={{ fontSize: '26px' }} />
               <Typography sx={{ fontSize: '24px', fontWeight: '900' }}>26° C</Typography>
@@ -99,7 +99,7 @@ export const Navigation = () => {
             </Stack>
           </Box>
 
-          <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' }, color: white }}>
             <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
               <ThunderstormIcon sx={{ fontSize: '21px' }} />
               <Typography sx={{ fontSize: '13px', fontWeight: '900' }}>26° C</Typography>
