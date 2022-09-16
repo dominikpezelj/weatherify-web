@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Navigation } from './components/AppBar/Navigation';
 import { SpeedDialMenu } from './components/AppBar/SpeedDial';
+import { useGetCoordinates } from './hooks/useGetCoordinates';
 import { Astronomy } from './pages/Astronomy/Astronomy';
 import { Current } from './pages/Current/Current';
 import { Forecast } from './pages/Forecast/Forecast';
@@ -14,12 +15,15 @@ import { lightTheme } from './theme/lightTheme';
 
 function App() {
   useSelector((state: any) => state.navigation.isDarkModeEnabled);
+  const coordinates = useGetCoordinates();
+  const { latitude, longitude } = coordinates;
+  console.log(latitude + longitude);
   const themeState = localStorage.getItem('theme');
   return (
     <ThemeProvider theme={themeState === 'false' ? lightTheme : darkTheme}>
       <BrowserRouter>
         <Paper style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}>
-          <div style={{ flex: 1 }}>
+          <Paper style={{ flex: 1 }}>
             <Navigation />
             <Routes>
               <Route path="/" element={<Current />} />
@@ -29,7 +33,7 @@ function App() {
               <Route path="/info" element={<Info />} />
               <Route path="/settings" element={<Settings />} />
             </Routes>
-          </div>
+          </Paper>
           <SpeedDialMenu />
         </Paper>
       </BrowserRouter>
