@@ -18,6 +18,9 @@ export const darkTheme = createTheme({
       color: '#fffff',
     },
   },
+  colors: {
+    white: '#ededed',
+  },
 });
 
 declare module '@mui/material/styles' {
@@ -27,7 +30,10 @@ declare module '@mui/material/styles' {
       text: { primary: string; secondary: string; disabled: string; icon: string };
     };
     typography: { fontFamily: string; h6: { color: string } };
+    colors: { white: string };
   }
   // allow configuration using `createTheme`
-  interface ThemeOptions {}
+  interface ThemeOptions {
+    colors: { white: string };
+  }
 }

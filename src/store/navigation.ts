@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const darkMode = localStorage.getItem('theme') === 'false' ? false : true;
+
 const initialNavigationState = {
-  isDarkModeEnabled: false,
+  isDarkModeEnabled: darkMode,
 };
 
 const navigationSlice = createSlice({
