@@ -20,7 +20,7 @@ import { NavigationLogo } from './NavigationLogo';
 export const Navigation = () => {
   const [state, setState] = useState(false);
   const theme = useTheme();
-  const { primary } = theme.palette.text;
+  const { white } = theme.colors;
 
   const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
@@ -34,7 +34,7 @@ export const Navigation = () => {
     setState(open);
   };
 
-  console.log(state);
+  //console.log(state);
 
   return (
     <AppBar position="static">
@@ -47,6 +47,7 @@ export const Navigation = () => {
             iconColor={'#ffbf00'}
             iconSize={'30px'}
             titleSize={'19px'}
+            titleColor={white}
           />
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -56,7 +57,7 @@ export const Navigation = () => {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={toggleDrawer(true)}
-              color="inherit"
+              style={{ color: white }}
             >
               <MenuIcon />
             </IconButton>
@@ -67,9 +68,10 @@ export const Navigation = () => {
             title={appName}
             display={{ xs: 'flex', md: 'none' }}
             iconColor={'#ffbf00'}
-            iconSize={'21px'}
-            titleSize={'15px'}
+            iconSize={'26px'}
+            titleSize={'18px'}
             flexGrow={1}
+            titleColor={white}
           />
           <Box
             sx={{
@@ -79,14 +81,14 @@ export const Navigation = () => {
           >
             {menuItems.map((page) => (
               <Link to={page.path} style={{ textDecoration: 'none' }} key={page.route}>
-                <Button key={page.route} href={page.path} sx={{ color: primary, display: 'block' }}>
+                <Button key={page.route} sx={{ color: white, display: 'block' }}>
                   {page.route}
                 </Button>
               </Link>
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, color: white }}>
             <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
               <ThunderstormIcon sx={{ fontSize: '26px' }} />
               <Typography sx={{ fontSize: '24px', fontWeight: '900' }}>26° C</Typography>
@@ -97,7 +99,7 @@ export const Navigation = () => {
             </Stack>
           </Box>
 
-          <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' }, color: white }}>
             <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
               <ThunderstormIcon sx={{ fontSize: '21px' }} />
               <Typography sx={{ fontSize: '13px', fontWeight: '900' }}>26° C</Typography>

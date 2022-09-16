@@ -6,7 +6,7 @@ export const Settings = () => {
   const darkMode = useSelector((state: any) => state.navigation.isDarkModeEnabled);
   const handleChange = () => {
     dispatch(navigationActions.toggleDarkMode(!darkMode));
+    localStorage.setItem('theme', (!darkMode).toString());
   };
-  console.log(darkMode);
   return <Switch checked={darkMode} onChange={handleChange}></Switch>;
 };

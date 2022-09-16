@@ -7,8 +7,8 @@ export const lightTheme = createTheme({
       main: '#00b6ff',
     },
     text: {
-      primary: '#ffffff !important',
-      secondary: 'rgba(0,0,0,0.7)',
+      primary: 'rgba(0,0,0,0.7)',
+      secondary: '#000',
       disabled: '#ggg',
     },
   },
@@ -17,6 +17,9 @@ export const lightTheme = createTheme({
     h6: {
       color: '#fffff',
     },
+  },
+  colors: {
+    white: '#ededed',
   },
 });
 
@@ -27,7 +30,10 @@ declare module '@mui/material/styles' {
       text: { primary: string; secondary: string; disabled: string; icon: string };
     };
     typography: { fontFamily: string; h6: { color: string } };
+    colors: { white: string };
   }
   // allow configuration using `createTheme`
-  interface ThemeOptions {}
+  interface ThemeOptions {
+    colors: { white: string };
+  }
 }

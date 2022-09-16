@@ -1,4 +1,4 @@
-import { Box, Paper, ThemeProvider } from '@mui/material';
+import { Paper, ThemeProvider } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Navigation } from './components/AppBar/Navigation';
@@ -11,24 +11,24 @@ import { Settings } from './pages/Settings/Settings';
 import { Timezones } from './pages/Timezones/Timezones';
 import { darkTheme } from './theme/darkTheme';
 import { lightTheme } from './theme/lightTheme';
+
 function App() {
-  const darkMode = useSelector((state: any) => state.navigation.isDarkModeEnabled);
+  useSelector((state: any) => state.navigation.isDarkModeEnabled);
+  const themeState = localStorage.getItem('theme');
   return (
-    <ThemeProvider theme={darkMode === false ? lightTheme : darkTheme}>
+    <ThemeProvider theme={themeState === 'false' ? lightTheme : darkTheme}>
       <BrowserRouter>
         <Paper style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}>
           <div style={{ flex: 1 }}>
             <Navigation />
-            <Box sx={{ pt: '2rem' }}>
-              <Routes>
-                <Route path="/" element={<Current />} />
-                <Route path="/forecast" element={<Forecast />} />
-                <Route path="/astronomy" element={<Astronomy />} />
-                <Route path="/timezones" element={<Timezones />} />
-                <Route path="/info" element={<Info />} />
-                <Route path="/settings" element={<Settings />} />
-              </Routes>
-            </Box>
+            <Routes>
+              <Route path="/" element={<Current />} />
+              <Route path="/forecast" element={<Forecast />} />
+              <Route path="/astronomy" element={<Astronomy />} />
+              <Route path="/timezones" element={<Timezones />} />
+              <Route path="/info" element={<Info />} />
+              <Route path="/settings" element={<Settings />} />
+            </Routes>
           </div>
           <SpeedDialMenu />
         </Paper>
