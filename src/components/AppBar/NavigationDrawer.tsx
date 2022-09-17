@@ -4,7 +4,6 @@ import InfoIcon from '@mui/icons-material/Info';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 
 import ThermostatIcon from '@mui/icons-material/Thermostat';
-import ThunderstormIcon from '@mui/icons-material/Thunderstorm';
 import {
   Box,
   Divider,
@@ -28,25 +27,31 @@ import { NavigationLogo } from './NavigationLogo';
 type NavigationDrawerProps = {
   menuItems: MenuItems[];
   state: boolean;
+  weatherInfo: WeatherInfo;
   toggleDrawer(open: boolean): any; //check type
 };
+
+interface WeatherInfo {
+  name: string;
+  localtime: string;
+  country: string;
+  region: string;
+  tz_id: string;
+  temp_c: number;
+  icon: string;
+}
 
 type MenuItems = {
   route: string;
   path: string;
 };
 
-export const NavigationDrawer = ({ menuItems, state, toggleDrawer }: NavigationDrawerProps) => {
+export const NavigationDrawer = ({ menuItems, state, weatherInfo, toggleDrawer }: NavigationDrawerProps) => {
   const [value, setValue] = useState(5);
   const theme = useTheme();
   const { primary, secondary } = theme.palette.text;
   const list = () => (
-    <Box
-      sx={{ width: 250 }}
-      role="presentation"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
-    >
+    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
       <Stack direction="row" justifyContent="center" alignItems="center" sx={{ height: '5rem' }}>
         <NavigationLogo
           variant={'h6'}
@@ -64,12 +69,28 @@ export const NavigationDrawer = ({ menuItems, state, toggleDrawer }: NavigationD
         alignItems="center"
         sx={{ height: '5rem', justifyContent: 'space-around', color: primary }}
       >
-        <ThunderstormIcon sx={{ fontSize: '26px' }} />
-        <Typography sx={{ fontSize: '24px', fontWeight: '900' }}>26° C</Typography>
-        <Stack direction="column" sx={{ display: 'flex' }}>
-          <Typography>Sisak</Typography>
-          <Typography>Croatia</Typography>
-        </Stack>
+        <Box>
+          <Typography
+            sx={{
+              fontSize: '13px',
+              lineHeight: '15px',
+              fontFamily: 'Roboto',
+              fontWeight: 300,
+              textTransform: 'uppercase',
+            }}
+          >
+            {weatherInfo.name}
+          </Typography>
+          <Typography sx={{ fontSize: '13px', lineHeight: '15px', fontFamily: 'Roboto', fontWeight: 300 }}>
+            {weatherInfo.country}
+          </Typography>
+          <Typography sx={{ fontSize: '13px', lineHeight: '15px', fontFamily: 'Roboto', fontWeight: 300 }}>
+            {weatherInfo.tz_id}
+          </Typography>
+        </Box>
+        <Typography sx={{ fontSize: '24px', fontWeight: '900' }}>
+          {weatherInfo.localtime.substr(weatherInfo.localtime.length - 5)}
+        </Typography>
       </Stack>
       <Divider />
       <List sx={{ pt: 0 }}>
@@ -86,10 +107,7 @@ export const NavigationDrawer = ({ menuItems, state, toggleDrawer }: NavigationD
                     {index === 4 && <InfoIcon />}
                   </ListItemIcon>
                 }
-                <ListItemText
-                  primary={item.route}
-                  sx={{ fontWeight: '900 !important', color: primary }}
-                />
+                <ListItemText primary={item.route} sx={{ fontWeight: '900 !important', color: primary }} />
               </ListItemButton>
             </ListItem>
             <Divider />
@@ -101,19 +119,9 @@ export const NavigationDrawer = ({ menuItems, state, toggleDrawer }: NavigationD
 
   return (
     <Fragment>
-      <Drawer
-        open={state}
-        onClose={toggleDrawer(false)}
-        sx={{ display: { xs: 'block', md: 'none' } }}
-      >
+      <Drawer open={state} onClose={toggleDrawer(false)} sx={{ display: { xs: 'block', md: 'none' } }}>
         {list()}
-        <Stack
-          direction="row"
-          justifyContent="center"
-          alignItems="flex-end"
-          spacing={0}
-          sx={{ flexGrow: 1 }}
-        >
+        <Stack direction="row" justifyContent="center" alignItems="flex-end" spacing={0} sx={{ flexGrow: 1 }}>
           <BottomMenu value={value} setValue={setValue} toggleDrawer={toggleDrawer} />
         </Stack>
         <Copyright />
