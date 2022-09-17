@@ -1,17 +1,8 @@
 import MenuIcon from '@mui/icons-material/Menu';
-import ThunderstormIcon from '@mui/icons-material/Thunderstorm';
-import {
-  Box,
-  Button,
-  Container,
-  IconButton,
-  Stack,
-  Toolbar,
-  Typography,
-  useTheme,
-} from '@mui/material';
+import { Box, Button, Container, IconButton, Stack, Toolbar, Typography, useTheme } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { appName, menuItems } from '../../common/constants';
 import { NavigationDrawer } from './NavigationDrawer';
@@ -19,14 +10,22 @@ import { NavigationLogo } from './NavigationLogo';
 
 export const Navigation = () => {
   const [state, setState] = useState(false);
+  const [weatherInfo, setWeatherInfo] = useState({
+    name: '',
+    country: '',
+    region: '',
+    tz_id: '',
+    temp_c: 0,
+    icon: '',
+    localtime: '',
+  });
   const theme = useTheme();
   const { white } = theme.colors;
 
   const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
       event.type === 'keydown' &&
-      ((event as React.KeyboardEvent).key === 'Tab' ||
-        (event as React.KeyboardEvent).key === 'Shift')
+      ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')
     ) {
       return;
     }
@@ -34,7 +33,23 @@ export const Navigation = () => {
     setState(open);
   };
 
-  //console.log(state);
+  const weather = useSelector((state: any) => state.weather.weatherCurrent);
+  useEffect(() => {
+    if (weather) {
+      const { name, country, region, tz_id, localtime } = weather.location;
+      const { temp_c } = weather.current;
+      const { icon } = weather.current.condition;
+      setWeatherInfo({
+        name,
+        country,
+        localtime,
+        region,
+        tz_id,
+        temp_c: Math.round(temp_c),
+        icon,
+      });
+    }
+  }, [weather]);
 
   return (
     <AppBar position="static">
@@ -61,7 +76,12 @@ export const Navigation = () => {
             >
               <MenuIcon />
             </IconButton>
-            <NavigationDrawer toggleDrawer={toggleDrawer} menuItems={menuItems} state={state} />
+            <NavigationDrawer
+              toggleDrawer={toggleDrawer}
+              menuItems={menuItems}
+              state={state}
+              weatherInfo={weatherInfo}
+            />
           </Box>
           <NavigationLogo
             variant={'h5'}
@@ -90,19 +110,18 @@ export const Navigation = () => {
 
           <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, color: white }}>
             <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
-              <ThunderstormIcon sx={{ fontSize: '26px' }} />
-              <Typography sx={{ fontSize: '24px', fontWeight: '900' }}>26° C</Typography>
+              <img src={weatherInfo.icon} width="35px" alt="Weather condition icon" />
+              <Typography sx={{ fontSize: '24px', fontWeight: '900' }}>{weatherInfo.temp_c} °C</Typography>
               <Stack direction="column">
-                <Typography>Sisak</Typography>
-                <Typography>Croatia</Typography>
+                <Typography>{weatherInfo.name}</Typography>
               </Stack>
             </Stack>
           </Box>
 
           <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' }, color: white }}>
             <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
-              <ThunderstormIcon sx={{ fontSize: '21px' }} />
-              <Typography sx={{ fontSize: '13px', fontWeight: '900' }}>26° C</Typography>
+              <img src={weatherInfo.icon} width="26px" alt="Weather condition icon" />
+              <Typography sx={{ fontSize: '18px', fontWeight: '900' }}>{weatherInfo.temp_c} °C</Typography>
             </Stack>
           </Box>
         </Toolbar>

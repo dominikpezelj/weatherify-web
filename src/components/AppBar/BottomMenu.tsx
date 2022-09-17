@@ -12,7 +12,6 @@ type BottomMenuProps = {
 };
 
 export const BottomMenu = ({ value, setValue, toggleDrawer }: BottomMenuProps) => {
-  console.log(value);
   const theme = useTheme();
   const { primary, secondary } = theme.palette.text;
   return (

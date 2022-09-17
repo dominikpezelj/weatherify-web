@@ -20,6 +20,10 @@ export const lightTheme = createTheme({
   },
   colors: {
     white: '#ededed',
+    primary: '#c9c6c0',
+    secondary: '#d0cec9',
+    tertiary: '#dfddda',
+    textCards: '#202225',
   },
 });
 
@@ -30,10 +34,10 @@ declare module '@mui/material/styles' {
       text: { primary: string; secondary: string; disabled: string; icon: string };
     };
     typography: { fontFamily: string; h6: { color: string } };
-    colors: { white: string };
+    colors: { white: string; primary: string; secondary: string; tertiary: string; textCards: string };
   }
   // allow configuration using `createTheme`
   interface ThemeOptions {
-    colors: { white: string };
+    colors: { white: string; primary: string; secondary: string; tertiary: string; textCards: string };
   }
 }

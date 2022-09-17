@@ -12,3 +12,9 @@ export interface SearchData {
   key: string;
   value: unknown;
 }
+
+export interface CoordsData {
+  key: string;
+  lat: number;
+  lon: number;
+}

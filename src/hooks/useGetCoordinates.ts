@@ -9,7 +9,6 @@ export const useGetCoordinates = () => {
     const geolocationAPI = navigator.geolocation;
 
     if (!geolocationAPI) {
-      console.log('Geolocation not working!');
       return;
     }
     geolocationAPI.getCurrentPosition(async ({ coords }) => {
