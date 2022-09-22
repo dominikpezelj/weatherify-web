@@ -5,7 +5,7 @@ import { Forecast } from './types/forecast';
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://api.weatherapi.com/v1/',
+    baseUrl: 'https://api.weatherapi.com/v1/',
   }),
   endpoints: (builder) => ({
     getLocationByName: builder.query<Locations[], SearchData>({
