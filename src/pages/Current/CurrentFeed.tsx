@@ -110,7 +110,7 @@ export const CurrentFeed = () => {
 
           {currentList &&
             currentList.map((item) => (
-              <CardItem title={item.title} value={item.value} measureUnit={item.measureUnit} />
+              <CardItem title={item.title} value={item.value} measureUnit={item.measureUnit} key={item.title} />
             ))}
         </Box>
 
@@ -131,7 +131,7 @@ export const CurrentFeed = () => {
 
           {airQualityList &&
             airQualityList.map((item) => (
-              <CardItem title={item.title} value={item.value} measureUnit={item.measureUnit} />
+              <CardItem title={item.title} value={item.value} measureUnit={item.measureUnit} key={item.title} />
             ))}
         </Box>
       </Stack>
