@@ -1,4 +1,5 @@
 export const appName = 'Weatherify';
+export const apiKey = '8ef102dbbdfd46d1abb203040211309';
 export const menuItems = [
   {
     route: 'Current',

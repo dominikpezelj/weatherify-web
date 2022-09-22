@@ -1,15 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialWeatherState = {
-  weather: null,
+  weatherCurrent: null,
+  weatherForecast: null,
+  weatherSearch: false,
+  weatherSearchCompleted: '',
 };
 
 const weatherSlice = createSlice({
   name: 'weather',
   initialState: initialWeatherState,
   reducers: {
-    weather(state, action) {
-      state.weather = action.payload;
+    weatherCurrent(state, action) {
+      state.weatherCurrent = action.payload;
+    },
+    weatherForecast(state, action) {
+      state.weatherForecast = action.payload;
+    },
+    weatherSearch(state, action) {
+      state.weatherSearch = action.payload;
+    },
+    weatherSearchCompleted(state, action) {
+      state.weatherSearchCompleted = action.payload;
     },
   },
 });

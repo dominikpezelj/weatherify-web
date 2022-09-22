@@ -1,18 +1,9 @@
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import {
-  Autocomplete,
-  AutocompleteChangeDetails,
-  AutocompleteChangeReason,
-  Box,
-  TextField,
-  useTheme,
-} from '@mui/material';
+import { Autocomplete, Box, TextField, useTheme } from '@mui/material';
 import { styled } from '@mui/system';
-import debouce from 'lodash.debounce';
-import { ChangeEvent, SyntheticEvent, useEffect, useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useGetLocationByNameQuery, useLazyGetCurrentWeatherByLocationQuery } from '../../api/api';
-import { weatherActions } from '../../store/weather';
+import { useGetLocationByNameQuery } from '../../api/api';
+import { apiKey } from '../../common/constants';
+import { useLocationSearch } from '../../hooks/useLocationSearch';
 
 const StyledAutocomplete = styled(Autocomplete)`
   & .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'] {
@@ -41,63 +32,22 @@ const StyledTextField = styled(TextField)`
 export const SearchBar = () => {
   const theme = useTheme();
   const arr: string[] = [];
-  const dispatch = useDispatch();
-  const [searchValue, setSearchValue] = useState<string>('');
-  const [skip, setSkip] = useState<boolean>(true);
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    if (event.target.value.length > 1) {
-      setSearchValue(event.target.value);
-      setSkip(false);
-    }
-    if (event.target.value.length === 0) {
-      setSearchValue('');
-      setSkip(true);
-    }
-  };
 
-  const debouncedResults = useMemo(() => {
-    return debouce(handleInputChange, 300);
-  }, []);
+  const { handleAutocompleteChange, debouncedResults, searchValue, skip } = useLocationSearch();
 
-  useEffect(() => {
-    return () => {
-      debouncedResults.cancel();
-    };
-  });
-
-  const [trigger, { data: weatherData, isFetching: weatherIsFetching, error: weatherError }] =
-    useLazyGetCurrentWeatherByLocationQuery();
-
-  const handleAutocompleteChange = (
-    event: SyntheticEvent<Element, Event>,
-    value: unknown,
-    reason: AutocompleteChangeReason,
-    details?: AutocompleteChangeDetails<unknown> | undefined,
-  ) => {
-    console.log(value);
-    if (value) {
-      trigger({ key: '8ef102dbbdfd46d1abb203040211309', value }, true);
-    }
-  };
-
-  if (weatherData) {
-    dispatch(weatherActions.weather(weatherData));
-  }
-  console.log(weatherData);
   const { data, isFetching, error } = useGetLocationByNameQuery(
     {
-      key: '8ef102dbbdfd46d1abb203040211309',
+      key: apiKey,
       value: searchValue,
     },
     {
       skip,
     },
   );
-  if (error) console.log(error);
   data?.forEach((item) => {
     arr.push(item.name);
   });
-  console.log(arr.length);
+
   return (
     <StyledAutocomplete
       disablePortal
