@@ -115,17 +115,23 @@ export const Header = () => {
           </div>
         ))}
       </AutoPlaySwipeableViews>
-      <Box
+      <Stack
+        direction={'row'}
         sx={{
-          display: { xs: 'none', md: 'flex' },
           justifyContent: 'space-around',
-          position: 'relative',
-          top: '-18.5rem',
-          width: '100%',
           color: white,
         }}
       >
-        <Box sx={{ background: 'rgba(0,0,0,0.5)', borderRadius: '.5rem', p: '1rem' }}>
+        <Box
+          sx={{
+            background: 'rgba(0,0,0,0.5)',
+            borderRadius: '.5rem',
+            p: '1rem',
+            display: { xs: 'none', md: 'block' },
+            top: '-18.5rem',
+            position: 'relative',
+          }}
+        >
           {weatherInfo.name && (
             <Typography
               sx={{
@@ -182,35 +188,13 @@ export const Header = () => {
             maxHeight: '3rem',
             mt: '3rem',
             minWidth: '15rem',
+            top: { xs: '-13rem', md: '-18.5rem' },
+            position: 'relative',
           }}
         >
           <SearchBar />
         </Box>
-      </Box>
-
-      <Box
-        sx={{
-          display: { xs: 'flex', md: 'none' },
-          justifyContent: 'center',
-          position: 'relative',
-          top: '-13rem',
-          width: '100%',
-          color: white,
-        }}
-      >
-        <Box
-          sx={{
-            background: 'rgba(0,0,0,0.5)',
-            borderRadius: '.5rem',
-            p: '0.5rem 1rem 1rem 1rem',
-            maxHeight: '3rem',
-            mt: '3rem',
-            minWidth: '15rem',
-          }}
-        >
-          <SearchBar />
-        </Box>
-      </Box>
+      </Stack>
     </Box>
   );
 };

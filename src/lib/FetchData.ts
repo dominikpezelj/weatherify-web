@@ -19,7 +19,7 @@ export const FetchData = () => {
     useLazyGetCurrentWeatherByLocationQuery();
 
   useEffect(() => {
-    if (!isSearched) {
+    if (!isSearched && latitude && longitude) {
       triggerCoords(
         {
           key: apiKey,
