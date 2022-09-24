@@ -6,11 +6,14 @@ import { weatherActions } from '../store/weather';
 export const usePrepareWeatherData = () => {
   const [currentList, setCurrentList] = useState<CardItemProps[]>([]);
   const [airQualityList, setAirQualityList] = useState<CardItemProps[]>([]);
+  const [windList, setWindList] = useState<CardItemProps[]>([]);
+  const [windDegree, setWindDegree] = useState<number>(0);
   const weather = useSelector((state: any) => state.weather.weatherCurrent);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (weather) {
+      console.log(weather);
       const { current } = weather;
       const { air_quality } = current;
 
@@ -45,9 +48,19 @@ export const usePrepareWeatherData = () => {
           value: air_quality.pm10.toFixed(2),
           measureUnit: ' µg/m³',
         },
+        {
+          title: 'GB Defra index',
+          value: air_quality['gb-defra-index'],
+          measureUnit: ' ',
+        },
       ];
 
       const currentData = [
+        {
+          title: 'Condition',
+          value: current.condition.text,
+          measureUnit: ' ',
+        },
         {
           title: 'Temperature',
           value: current.temp_c,
@@ -79,6 +92,30 @@ export const usePrepareWeatherData = () => {
           measureUnit: ' mm',
         },
       ];
+      const windData = [
+        {
+          title: 'Wind degree',
+          value: current.wind_degree,
+          measureUnit: ' °',
+        },
+        {
+          title: 'Wind direction',
+          value: current.wind_dir,
+          measureUnit: ' ',
+        },
+        {
+          title: 'Wind speed',
+          value: current.wind_kph,
+          measureUnit: ' kph',
+        },
+        {
+          title: 'Wind gust',
+          value: current.gust_kph,
+          measureUnit: ' kph',
+        },
+      ];
+      setWindDegree(current.wind_degree);
+      setWindList(windData);
       setCurrentList(currentData);
       setAirQualityList(airQualityData);
       dispatch(weatherActions.weatherIsLoading(false));
@@ -114,9 +151,19 @@ export const usePrepareWeatherData = () => {
           value: null,
           measureUnit: null,
         },
+        {
+          title: 'GB Defra index',
+          value: null,
+          measureUnit: null,
+        },
       ];
 
       const currentData = [
+        {
+          title: 'Condition',
+          value: null,
+          measureUnit: null,
+        },
         {
           title: 'Temperature',
           value: null,
@@ -148,11 +195,35 @@ export const usePrepareWeatherData = () => {
           measureUnit: null,
         },
       ];
+      const windData = [
+        {
+          title: 'Wind degree',
+          value: null,
+          measureUnit: null,
+        },
+        {
+          title: 'Wind direction',
+          value: null,
+          measureUnit: null,
+        },
+        {
+          title: 'Wind speed',
+          value: null,
+          measureUnit: null,
+        },
+        {
+          title: 'Wind gust',
+          value: null,
+          measureUnit: null,
+        },
+      ];
+      setWindDegree(0);
+      setWindList(windData);
       setCurrentList(currentData);
       setAirQualityList(airQualityData);
       dispatch(weatherActions.weatherIsLoading(true));
     }
   }, [dispatch, weather]);
 
-  return { currentList, airQualityList };
+  return { currentList, airQualityList, windList, windDegree };
 };

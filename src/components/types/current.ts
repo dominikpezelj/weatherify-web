@@ -4,6 +4,7 @@ export type CurrentCardProps = {
   cardTextColor: string;
   cardBorderColor: string;
   dataList: CardItemProps[];
+  windDegree?: number;
 };
 
 export interface CardItemProps {

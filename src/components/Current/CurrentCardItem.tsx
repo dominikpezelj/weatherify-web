@@ -13,7 +13,7 @@ export const CurrentCardItem = ({ title, value, measureUnit }: CardItemProps) =>
       direction="row"
       justifyContent="space-between"
       alignItems={'center'}
-      sx={{ background: 'transparent', p: '.3rem', borderBottom: `3px solid ${secondary}` }}
+      sx={{ background: 'transparent', p: '.3rem', borderBottom: `3px solid ${secondary}`, flex: 1 }}
     >
       <Typography>{title}</Typography>
       <Box
