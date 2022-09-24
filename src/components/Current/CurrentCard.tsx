@@ -19,7 +19,7 @@ export const CurrentCard = ({ title, cardBgColor, cardTextColor, cardBorderColor
         {title}
       </Typography>
 
-      {dataList.map((item) => (
+      {dataList?.map((item) => (
         <CurrentCardItem title={item.title} value={item.value} measureUnit={item.measureUnit} key={item.title} />
       ))}
     </Box>

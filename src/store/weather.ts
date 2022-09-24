@@ -6,6 +6,7 @@ const initialWeatherState = {
   weatherSearch: false,
   weatherSearchCompleted: '',
   weatherIsLoading: true,
+  weatherAlertsCount: null,
 };
 
 const weatherSlice = createSlice({
@@ -26,6 +27,9 @@ const weatherSlice = createSlice({
     },
     weatherIsLoading(state, action) {
       state.weatherIsLoading = action.payload;
+    },
+    weatherAlertsCount(state, action) {
+      state.weatherAlertsCount = action.payload;
     },
   },
 });

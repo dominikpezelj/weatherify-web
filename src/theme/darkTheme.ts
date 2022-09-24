@@ -25,6 +25,8 @@ export const darkTheme = createTheme({
     tertiary: '#36393f',
     textCards: '#C9C6C0',
     skeleton: 'rgba(0,0,0,0.5)',
+    warning: '#FFBF00',
+    textWarningNotif: '#000',
   },
 });
 
@@ -42,6 +44,8 @@ declare module '@mui/material/styles' {
       tertiary: string;
       textCards: string;
       skeleton: string;
+      warning: string;
+      textWarningNotif: string;
     };
   }
   // allow configuration using `createTheme`
@@ -53,6 +57,8 @@ declare module '@mui/material/styles' {
       tertiary: string;
       textCards: string;
       skeleton: string;
+      warning: string;
+      textWarningNotif: string;
     };
   }
 }

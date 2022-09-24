@@ -31,7 +31,7 @@ export const CurrentWindInfo = ({
           <NorthIcon sx={{ fontSize: '90px', rotate: `${windDegree}deg` }} />
         </Box>
         <Box sx={{ maxWidth: '50%', flex: 1 }}>
-          {dataList.map((item) => (
+          {dataList?.map((item) => (
             <CurrentCardItem title={item.title} value={item.value} measureUnit={item.measureUnit} key={item.title} />
           ))}
         </Box>
@@ -42,7 +42,7 @@ export const CurrentWindInfo = ({
           <NorthIcon sx={{ fontSize: '90px', rotate: `${windDegree}deg` }} />
         </Box>
         <Box sx={{ flex: 1, borderTop: `3px solid ${cardBorderColor}` }}>
-          {dataList.map((item) => (
+          {dataList?.map((item) => (
             <CurrentCardItem title={item.title} value={item.value} measureUnit={item.measureUnit} key={item.title} />
           ))}
         </Box>

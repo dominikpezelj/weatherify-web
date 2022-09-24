@@ -4,6 +4,7 @@ import { CardItemProps } from '../components/types/current';
 import { weatherActions } from '../store/weather';
 
 export const usePrepareWeatherData = () => {
+  const [weatherAlerts, setWeatherAlerts] = useState([]);
   const [currentList, setCurrentList] = useState<CardItemProps[]>([]);
   const [airQualityList, setAirQualityList] = useState<CardItemProps[]>([]);
   const [windList, setWindList] = useState<CardItemProps[]>([]);
@@ -14,7 +15,8 @@ export const usePrepareWeatherData = () => {
   useEffect(() => {
     if (weather) {
       console.log(weather);
-      const { current } = weather;
+      const { current, alerts } = weather;
+      const { alert } = alerts;
       const { air_quality } = current;
 
       const airQualityData = [
@@ -114,6 +116,7 @@ export const usePrepareWeatherData = () => {
           measureUnit: ' kph',
         },
       ];
+      setWeatherAlerts(alert);
       setWindDegree(current.wind_degree);
       setWindList(windData);
       setCurrentList(currentData);
@@ -217,6 +220,7 @@ export const usePrepareWeatherData = () => {
           measureUnit: null,
         },
       ];
+      setWeatherAlerts([]);
       setWindDegree(0);
       setWindList(windData);
       setCurrentList(currentData);
@@ -225,5 +229,5 @@ export const usePrepareWeatherData = () => {
     }
   }, [dispatch, weather]);
 
-  return { currentList, airQualityList, windList, windDegree };
+  return { currentList, airQualityList, windList, windDegree, weatherAlerts };
 };
