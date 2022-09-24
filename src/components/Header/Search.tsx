@@ -1,6 +1,7 @@
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Autocomplete, Box, TextField, useTheme } from '@mui/material';
 import { styled } from '@mui/system';
+import { useState } from 'react';
 import { useGetLocationByNameQuery } from '../../api/api';
 import { apiKey } from '../../common/constants';
 import { useLocationSearch } from '../../hooks/useLocationSearch';
@@ -32,7 +33,7 @@ const StyledTextField = styled(TextField)`
 export const SearchBar = () => {
   const theme = useTheme();
   const arr: string[] = [];
-
+  const [value, setValue] = useState<string>();
   const { handleAutocompleteChange, debouncedResults, searchValue, skip } = useLocationSearch();
 
   const { data, isFetching, error } = useGetLocationByNameQuery(
@@ -59,6 +60,8 @@ export const SearchBar = () => {
       autoComplete={true}
       autoSelect={true}
       onChange={handleAutocompleteChange}
+      onInputChange={debouncedResults}
+      blurOnSelect={'touch'}
       sx={{ flex: 1 }}
       renderInput={(params) => (
         <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
@@ -69,7 +72,7 @@ export const SearchBar = () => {
             label="Select a location"
             type="search"
             variant="standard"
-            onChange={debouncedResults}
+            value={searchValue}
           />
         </Box>
       )}

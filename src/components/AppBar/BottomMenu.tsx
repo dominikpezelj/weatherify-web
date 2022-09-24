@@ -4,12 +4,7 @@ import { Box, Divider, useTheme } from '@mui/material';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { Link } from 'react-router-dom';
-
-type BottomMenuProps = {
-  value: number;
-  setValue(value: number): void;
-  toggleDrawer(open: boolean): any;
-};
+import { BottomMenuProps } from '../types/app-bar';
 
 export const BottomMenu = ({ value, setValue, toggleDrawer }: BottomMenuProps) => {
   const theme = useTheme();
