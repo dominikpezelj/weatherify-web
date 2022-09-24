@@ -3,7 +3,9 @@ export type CurrentCardProps = {
   cardBgColor: string;
   cardTextColor: string;
   cardBorderColor: string;
-  dataList: CardItemProps[];
+  dataList?: CardItemProps[];
+  alertList?: any[];
+  windDegree?: number;
 };
 
 export interface CardItemProps {
