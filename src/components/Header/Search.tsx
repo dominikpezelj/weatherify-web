@@ -65,15 +65,7 @@ export const SearchBar = () => {
       renderInput={(params) => (
         <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
           <LocationOnIcon sx={{ color: 'white', mr: 1, my: 0.5 }} />
-          <StyledTextField
-            {...params}
-            id="search"
-            label="Select a location"
-            type="search"
-            variant="standard"
-
-            /* onChange={debouncedResults} */
-          />
+          <StyledTextField {...params} id="search" label="Select a location" type="search" variant="standard" />
         </Box>
       )}
     />

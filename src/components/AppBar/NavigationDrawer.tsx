@@ -12,6 +12,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Skeleton,
   Stack,
   Typography,
   useTheme,
@@ -28,7 +29,8 @@ import { NavigationLogo } from './NavigationLogo';
 export const NavigationDrawer = ({ menuItems, state, weatherInfo, toggleDrawer }: NavigationDrawerProps) => {
   const [value, setValue] = useState(5);
   const theme = useTheme();
-  const { primary, secondary } = theme.palette.text;
+  const { primary } = theme.palette.text;
+  const { skeleton } = theme.colors;
   const list = () => (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
       <Stack direction="row" justifyContent="center" alignItems="center" sx={{ height: '5rem' }}>
@@ -49,27 +51,45 @@ export const NavigationDrawer = ({ menuItems, state, weatherInfo, toggleDrawer }
         sx={{ height: '5rem', justifyContent: 'space-around', color: primary }}
       >
         <Box>
-          <Typography
-            sx={{
-              fontSize: '13px',
-              lineHeight: '15px',
-              fontFamily: 'Roboto',
-              fontWeight: 300,
-              textTransform: 'uppercase',
-            }}
-          >
-            {weatherInfo.name}
-          </Typography>
-          <Typography sx={{ fontSize: '13px', lineHeight: '15px', fontFamily: 'Roboto', fontWeight: 300 }}>
-            {weatherInfo.country}
-          </Typography>
-          <Typography sx={{ fontSize: '13px', lineHeight: '15px', fontFamily: 'Roboto', fontWeight: 300 }}>
-            {weatherInfo.tz_id}
-          </Typography>
+          {weatherInfo.name && weatherInfo.country && weatherInfo.tz_id && (
+            <Box>
+              <Typography
+                sx={{
+                  fontSize: '13px',
+                  lineHeight: '15px',
+                  fontFamily: 'Roboto',
+                  fontWeight: 300,
+                  textTransform: 'uppercase',
+                }}
+              >
+                {weatherInfo.name}
+              </Typography>
+              <Typography sx={{ fontSize: '13px', lineHeight: '15px', fontFamily: 'Roboto', fontWeight: 300 }}>
+                {weatherInfo.country}
+              </Typography>
+              <Typography sx={{ fontSize: '13px', lineHeight: '15px', fontFamily: 'Roboto', fontWeight: 300 }}>
+                {weatherInfo.tz_id}
+              </Typography>
+            </Box>
+          )}
+          {!weatherInfo.name && (
+            <Skeleton variant="text" width={'80px'} sx={{ bgcolor: skeleton, fontSize: '1.2rem' }} />
+          )}
+          {!weatherInfo.country && (
+            <Skeleton variant="text" width={'80px'} sx={{ bgcolor: skeleton, fontSize: '1.0rem' }} />
+          )}
+          {!weatherInfo.tz_id && (
+            <Skeleton variant="text" width={'80px'} sx={{ bgcolor: skeleton, fontSize: '1.0rem' }} />
+          )}
         </Box>
-        <Typography sx={{ fontSize: '24px', fontWeight: '900' }}>
-          {weatherInfo.localtime.substr(weatherInfo.localtime.length - 5)}
-        </Typography>
+        {weatherInfo.localtime && (
+          <Typography sx={{ fontSize: '24px', fontWeight: '900' }}>
+            {weatherInfo.localtime.substr(weatherInfo.localtime.length - 5)}
+          </Typography>
+        )}
+        {!weatherInfo.localtime && (
+          <Skeleton variant="rounded" width={'60px'} height={'30px'} sx={{ bgcolor: skeleton }} />
+        )}
       </Stack>
       <Divider />
       <List sx={{ pt: 0 }}>

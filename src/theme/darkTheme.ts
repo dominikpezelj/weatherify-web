@@ -24,6 +24,7 @@ export const darkTheme = createTheme({
     secondary: '#2f3136',
     tertiary: '#36393f',
     textCards: '#C9C6C0',
+    skeleton: 'rgba(0,0,0,0.5)',
   },
 });
 
@@ -34,10 +35,24 @@ declare module '@mui/material/styles' {
       text: { primary: string; secondary: string; disabled: string; icon: string };
     };
     typography: { fontFamily: string; h6: { color: string } };
-    colors: { white: string; primary: string; secondary: string; tertiary: string; textCards: string };
+    colors: {
+      white: string;
+      primary: string;
+      secondary: string;
+      tertiary: string;
+      textCards: string;
+      skeleton: string;
+    };
   }
   // allow configuration using `createTheme`
   interface ThemeOptions {
-    colors: { white: string; primary: string; secondary: string; tertiary: string; textCards: string };
+    colors: {
+      white: string;
+      primary: string;
+      secondary: string;
+      tertiary: string;
+      textCards: string;
+      skeleton: string;
+    };
   }
 }

@@ -1,5 +1,5 @@
 import MenuIcon from '@mui/icons-material/Menu';
-import { Box, Button, Container, IconButton, Stack, Toolbar, Typography, useTheme } from '@mui/material';
+import { Box, Button, Container, IconButton, Skeleton, Stack, Toolbar, Typography, useTheme } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -20,7 +20,7 @@ export const Navigation = () => {
     localtime: '',
   });
   const theme = useTheme();
-  const { white } = theme.colors;
+  const { white, secondary, skeleton } = theme.colors;
 
   const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
@@ -110,18 +110,36 @@ export const Navigation = () => {
 
           <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, color: white }}>
             <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
-              <img src={weatherInfo.icon} width="35px" alt="Weather condition icon" />
-              <Typography sx={{ fontSize: '24px', fontWeight: '900' }}>{weatherInfo.temp_c} °C</Typography>
-              <Stack direction="column">
-                <Typography>{weatherInfo.name}</Typography>
-              </Stack>
+              {weatherInfo.icon && <img src={weatherInfo.icon} width="35px" alt="Weather condition icon" />}
+              {!weatherInfo.icon && (
+                <Skeleton variant="circular" width={'35px'} height={'35px'} sx={{ bgcolor: skeleton }} />
+              )}
+              {weatherInfo.temp_c !== 0 && (
+                <Typography sx={{ fontSize: '24px', fontWeight: '900' }}>{weatherInfo.temp_c} °C</Typography>
+              )}
+              {!weatherInfo.temp_c && (
+                <Skeleton variant="rounded" width={'55px'} height={'35px'} sx={{ bgcolor: skeleton }} />
+              )}
+
+              {weatherInfo.name && <Typography>{weatherInfo.name}</Typography>}
+              {!weatherInfo.name && (
+                <Skeleton variant="text" width={'75px'} height={'1rem'} sx={{ bgcolor: skeleton }} />
+              )}
             </Stack>
           </Box>
 
           <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' }, color: white }}>
             <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
-              <img src={weatherInfo.icon} width="26px" alt="Weather condition icon" />
-              <Typography sx={{ fontSize: '18px', fontWeight: '900' }}>{weatherInfo.temp_c} °C</Typography>
+              {weatherInfo.icon && <img src={weatherInfo.icon} width="26px" alt="Weather condition icon" />}
+              {!weatherInfo.icon && (
+                <Skeleton variant="circular" width={'30px'} height={'30px'} sx={{ bgcolor: skeleton }} />
+              )}
+              {weatherInfo.temp_c !== 0 && (
+                <Typography sx={{ fontSize: '18px', fontWeight: '900' }}>{weatherInfo.temp_c} °C</Typography>
+              )}
+              {!weatherInfo.temp_c && (
+                <Skeleton variant="rounded" width={'55px'} height={'35px'} sx={{ bgcolor: skeleton }} />
+              )}
             </Stack>
           </Box>
         </Toolbar>

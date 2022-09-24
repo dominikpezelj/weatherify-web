@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Skeleton, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -32,6 +32,7 @@ const images = [
 
 export const Header = () => {
   const theme = useTheme();
+  const { skeleton } = theme.colors;
   const { white } = theme.colors;
   const [activeStep, setActiveStep] = useState(0);
   const [weatherInfo, setWeatherInfo] = useState({
@@ -125,31 +126,53 @@ export const Header = () => {
         }}
       >
         <Box sx={{ background: 'rgba(0,0,0,0.5)', borderRadius: '.5rem', p: '1rem' }}>
-          <Typography
-            sx={{
-              fontSize: '24px',
-            }}
-          >
-            {weatherInfo.name}
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: '16px',
-            }}
-          >
-            {weatherInfo.country}
-          </Typography>
+          {weatherInfo.name && (
+            <Typography
+              sx={{
+                fontSize: '24px',
+              }}
+            >
+              {weatherInfo.name}
+            </Typography>
+          )}
+          {!weatherInfo.name && <Skeleton variant="text" sx={{ bgcolor: skeleton, fontSize: '24px', flex: 1 }} />}
+
+          {weatherInfo.country && (
+            <Typography
+              sx={{
+                fontSize: '16px',
+              }}
+            >
+              {weatherInfo.country}
+            </Typography>
+          )}
+          {!weatherInfo.country && <Skeleton variant="text" sx={{ bgcolor: skeleton, fontSize: '16px', flex: 1 }} />}
+
           <Stack direction="row" spacing={4} sx={{ mt: '0.5rem', mb: '0.5rem' }}>
-            <img src={weatherInfo.icon} width="35px" alt="Weather condition icon" />
-            <Typography sx={{ fontSize: '24px', fontWeight: '900' }}>{weatherInfo.temp_c} °C</Typography>
+            {weatherInfo.icon && <img src={weatherInfo.icon} width="35px" alt="Weather condition icon" />}
+            {!weatherInfo.icon && (
+              <Skeleton variant="circular" width={'35px'} height={'35px'} sx={{ bgcolor: skeleton }} />
+            )}
+            {weatherInfo.temp_c !== 0 && (
+              <Typography sx={{ fontSize: '24px', fontWeight: '900' }}>{weatherInfo.temp_c} °C</Typography>
+            )}
+            {!weatherInfo.temp_c && (
+              <Skeleton variant="rounded" width={'55px'} height={'35px'} sx={{ bgcolor: skeleton }} />
+            )}
           </Stack>
-          <Typography
-            sx={{
-              fontSize: '16px',
-            }}
-          >
-            Feels like: {weatherInfo.feelslike_c} ° C
-          </Typography>
+
+          {weatherInfo.feelslike_c !== 0 && (
+            <Typography
+              sx={{
+                fontSize: '16px',
+              }}
+            >
+              Feels like: {weatherInfo.feelslike_c} °C
+            </Typography>
+          )}
+          {!weatherInfo.feelslike_c && (
+            <Skeleton variant="text" sx={{ bgcolor: skeleton, fontSize: '16px', flex: 1 }} />
+          )}
         </Box>
         <Box
           sx={{

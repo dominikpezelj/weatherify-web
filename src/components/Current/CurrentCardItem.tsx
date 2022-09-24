@@ -4,7 +4,7 @@ import { CardItemProps } from '../types/current';
 
 export const CurrentCardItem = ({ title, value, measureUnit }: CardItemProps) => {
   const theme = useTheme();
-  const { primary, secondary, tertiary, textCards } = theme.colors;
+  const { skeleton, secondary, tertiary, textCards } = theme.colors;
 
   const isDataLoading = useSelector((state: any) => state.weather.weatherIsLoading);
 
@@ -16,8 +16,18 @@ export const CurrentCardItem = ({ title, value, measureUnit }: CardItemProps) =>
       sx={{ background: 'transparent', p: '.3rem', borderBottom: `3px solid ${secondary}` }}
     >
       <Typography>{title}</Typography>
-      <Box sx={{ p: '0.5rem', background: secondary, borderRadius: '1rem', minWidth: '2rem' }}>
-        {isDataLoading && <Skeleton variant="rounded" height={'1rem'} sx={{ bgcolor: primary, flex: 1 }} />}
+      <Box
+        sx={{
+          p: '0.5rem',
+          background: secondary,
+          borderRadius: '1rem',
+          minWidth: '2rem',
+          justifyContent: 'center',
+          display: 'flex',
+          fontWeight: 500,
+        }}
+      >
+        {isDataLoading && <Skeleton variant="rounded" height={'1rem'} sx={{ bgcolor: skeleton, flex: 1 }} />}
         {!isDataLoading && value && measureUnit && value + measureUnit}
       </Box>
     </Stack>
