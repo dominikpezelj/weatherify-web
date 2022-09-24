@@ -66,7 +66,7 @@ export const usePrepareWeatherData = () => {
         {
           title: 'UV Index',
           value: current.uv,
-          measureUnit: '',
+          measureUnit: ' ',
         },
         {
           title: 'Visibility',
