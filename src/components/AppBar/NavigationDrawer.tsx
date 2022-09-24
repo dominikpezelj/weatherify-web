@@ -20,31 +20,10 @@ import Drawer from '@mui/material/Drawer';
 import { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { appName } from '../../common/constants';
+import { NavigationDrawerProps } from '../types/app-bar';
 import { BottomMenu } from './BottomMenu';
 import { Copyright } from './Copyright';
 import { NavigationLogo } from './NavigationLogo';
-
-type NavigationDrawerProps = {
-  menuItems: MenuItems[];
-  state: boolean;
-  weatherInfo: WeatherInfo;
-  toggleDrawer(open: boolean): any; //check type
-};
-
-interface WeatherInfo {
-  name: string;
-  localtime: string;
-  country: string;
-  region: string;
-  tz_id: string;
-  temp_c: number;
-  icon: string;
-}
-
-type MenuItems = {
-  route: string;
-  path: string;
-};
 
 export const NavigationDrawer = ({ menuItems, state, weatherInfo, toggleDrawer }: NavigationDrawerProps) => {
   const [value, setValue] = useState(5);

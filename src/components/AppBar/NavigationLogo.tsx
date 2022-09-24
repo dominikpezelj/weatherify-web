@@ -1,31 +1,6 @@
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import { Stack, Typography } from '@mui/material';
-
-type NavigationLogoProps = {
-  variant:
-    | 'h1'
-    | 'h2'
-    | 'h3'
-    | 'h4'
-    | 'h5'
-    | 'h6'
-    | 'subtitle1'
-    | 'subtitle2'
-    | 'body1'
-    | 'body2'
-    | 'caption'
-    | 'button'
-    | 'overline'
-    | 'inherit'
-    | undefined;
-  title: string;
-  titleSize: string;
-  titleColor?: string;
-  display: { xs: string; md: string };
-  iconColor: string;
-  iconSize: string;
-  flexGrow?: number;
-};
+import { NavigationLogoProps } from '../types/app-bar';
 
 export const NavigationLogo = ({
   variant,
