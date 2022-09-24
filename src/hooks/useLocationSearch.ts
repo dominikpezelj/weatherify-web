@@ -11,6 +11,7 @@ export const useLocationSearch = () => {
   const dispatch = useDispatch();
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    console.log('input' + searchValue);
     if (event.target.value.length > 1) {
       setSearchValue(event.target.value);
       setSkip(false);
@@ -29,6 +30,7 @@ export const useLocationSearch = () => {
     reason: AutocompleteChangeReason,
     details?: AutocompleteChangeDetails<unknown> | undefined,
   ) => {
+    console.log('autocomplete' + searchValue);
     if (value) {
       dispatch(weatherActions.weatherSearch(true));
       dispatch(weatherActions.weatherSearchCompleted(value));

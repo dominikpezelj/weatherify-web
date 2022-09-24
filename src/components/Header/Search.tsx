@@ -59,6 +59,8 @@ export const SearchBar = () => {
       autoComplete={true}
       autoSelect={true}
       onChange={handleAutocompleteChange}
+      onInputChange={debouncedResults}
+      blurOnSelect={'touch'}
       sx={{ flex: 1 }}
       renderInput={(params) => (
         <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
@@ -69,7 +71,8 @@ export const SearchBar = () => {
             label="Select a location"
             type="search"
             variant="standard"
-            onChange={debouncedResults}
+
+            /* onChange={debouncedResults} */
           />
         </Box>
       )}
